@@ -1,28 +1,24 @@
 const express = require ('express');
+const cors = require('cors')
+
 const app = express ();
 app.set ('view engine', 'hbs');
 app.use (express.static (__dirname + '/public'));
+app.use(cors())
 
 app.get ('/manifest.json', (req, res) => {
   // You can dynamically generate your manifest here
   // You can pull the data from database and send it back
-  // I will use a template for simplicity
 
-  //Use some logic to extract organization name from referer
-  var matches = /\/([a-z]+)\/?$/i.exec (req.headers.referer);
-  if (matches && matches.length > 1) {
-    var orgName = matches[1];
-  } else {
-    var orgName = 'ORGA'; //Default
-  }
+  const brandName = req.query.brand
 
   // Need to set content type, default is text/html
   res.set ('Content-Type', 'application/json');
-  res.render ('manifest.hbs', {orgName});
+  res.render ('manifest.hbs', { brandName });
 });
 
-app.get ('/:orgName', (req, res) => {
-  res.render ('index.hbs', {orgName: req.params.orgName});
+app.get ('/:brandName', (req, res) => {
+  res.render ('index.hbs', { brandName: req.params.brandName});
 });
 
-app.listen (3000, () => console.log ('Whitelist  app listening on port 3000!'));
+app.listen (5000, () => console.log ('Whitelist  app listening on port 5000!'));

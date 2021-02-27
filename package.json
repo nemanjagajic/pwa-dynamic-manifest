@@ -9,6 +9,7 @@
   "author": "Jose Cherian",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.16.3",
     "hbs": "^4.0.1"
   }
